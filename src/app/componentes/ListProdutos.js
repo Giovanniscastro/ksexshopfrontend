@@ -8,7 +8,7 @@ export default function ListProdutos() {
     const [listaProdutos, setListaProdutos] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:1337/api/produtos")
+        axios.get("http://localhost:1337/api/produtos/?populate=*")
             .then(function(response) { 
               setListaProdutos(response.data.data);
             })
