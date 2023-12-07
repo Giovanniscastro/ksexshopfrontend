@@ -3,10 +3,14 @@ import './app.css'
 import ListProdutos from './componentes/ListProdutos'
 import Menu from './componentes/menu'
 export default function Home() {
+  const trataMenu = (id) => {
+    alert(`Menu ${id}`)
+  }
   return (
     <>
       <body>
-        <Menu></Menu>
+        <Menu onSelect={trataMenu}>
+        </Menu>
         <main>
           <div className="w3-container w3-padding-16 w3-margin-top">
             <h1>Catalago KSexshop</h1>

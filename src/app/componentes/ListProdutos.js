@@ -12,7 +12,7 @@ export default function ListProdutos() {
             .then(function(response) { 
               setListaProdutos(response.data.data);
             })
-    }, [listaProdutos])
+    }, [])
 
     return (
         listaProdutos.map((prod) => 

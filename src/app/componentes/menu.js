@@ -2,15 +2,25 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import 'w3-css/3/w3.css'
-export default function Menu(){
+export default function Menu({onSelect}){
     const [listaCategorias, setListaCategorias] = useState([]);
-
+    
     useEffect(() => {
         axios.get("http://localhost:1337/api/categories")
             .then(function(response) { 
-              setListaCategorias(response.data.data);
+              const home= {
+                id: 0,
+                attributes: {
+                Name: "Principal"
+              }
+            }
+              let categorias= (response.data.data);
+              categorias.unshift(home);
+              setListaCategorias(categorias);
             })
-    }, [listaCategorias])
+            
+    }, [])
+
     return(
         
     <div className="w3-top w3-margin-botton">
@@ -20,7 +30,7 @@ export default function Menu(){
               <i className="fa fa-home w3-xlarge"></i>
             </a>
             {listaCategorias.map((cat) =>
-                <a href="#" className="w3-bar-item w3-button w3-hide-small">{cat.attributes.Name}</a> 
+                <a href="#" className="w3-bar-item w3-button w3-hide-small" onClick={()=>onSelect(cat.id)}>{cat.attributes.Name}</a> 
             )}
             
             <a href="#" className="w3-bar-item w3-button w3-right">
