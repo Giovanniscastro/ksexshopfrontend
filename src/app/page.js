@@ -2,6 +2,7 @@ import 'w3-css/3/w3.css'
 import './app.css'
 import ListProdutos from './componentes/ListProdutos'
 import Menu from './componentes/menu'
+import Carroussel from './componentes/carrousel'
 export default function Home() {
   const trataMenu = (id) => {
     alert(`Menu ${id}`)
@@ -9,11 +10,12 @@ export default function Home() {
   return (
     <>
       <body>
-        <Menu onSelect={trataMenu}>
+        <Menu>
         </Menu>
         <main>
+          <Carroussel></Carroussel>
           <div className="w3-container w3-padding-16 w3-margin-top">
-            <h1>Catalago KSexshop</h1>
+            <h1>Catálogo KSexshop</h1>
             </div>
 
           <ListProdutos></ListProdutos>
@@ -21,8 +23,17 @@ export default function Home() {
         </main>
 
 
-        <footer className="w3-container w3-margin-top w3-black ">
-        </footer>
+        <footer>
+          <p>&copy; 2023 - Todos os direitos reservados</p>
+            <nav>
+              <ul>
+                <li><a href="#">Termos de uso</a></li>
+                <li><a href="#">Política de privacidade</a></li>
+                <li><a href="#">Sobre nós</a></li>
+                <li><a href="#">Contato</a></li>
+              </ul>
+            </nav>
+         </footer>
       </body>
     </>
 
