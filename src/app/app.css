@@ -1,7 +1,43 @@
+body{
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb:  255, 255, 255;
+}
 h1{
     text-align: center;
     color: red;
+    font-style: italic;
+    border-bottom: solid;
+    font-family: Stencil Std;
 }
-a:active{
-    background-color: aqua;
+.w3-black, .w3-hover-black{
+    background-color: #b40b9f!important;
+}
+nav {
+    background-color: #b40b9f;
+}
+h3{
+    margin-bottom: 30px;
+}
+h5{
+    color: black;
+}
+#comprar{
+    border-radius: 40%;
+    background-color: rgb(50, 184, 61);
+    padding: 5px; 
+    color: aliceblue;
+
+    transition: 0.5s;
+
+}
+.mySlides{
+    margin-top: 5%;
+}
+footer{
+    width: 100%;
+    height: 20%;
+}
+li{
+    background-color: black;
 }
