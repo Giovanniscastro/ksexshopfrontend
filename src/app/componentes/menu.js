@@ -1,25 +1,31 @@
 'use client'
+
 import axios from 'axios';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from 'react';
-import 'w3-css/3/w3.css'
-export default function Menu({onSelect}){
+import 'w3-css/3/w3.css';
+
+export default function Menu(){
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const router = useRouter();
     const [listaCategorias, setListaCategorias] = useState([]);
-    
+
     useEffect(() => {
-        axios.get("http://localhost:1337/api/categories")
+        axios.get("http://localhost:1337/api/categories ")
             .then(function(response) { 
-              const home= {
-                id: 0,
-                attributes: {
-                Name: "Principal"
-              }
-            }
               let categorias= (response.data.data);
-              categorias.unshift(home);
               setListaCategorias(categorias);
             })
             
     }, [])
+
+    const setCategoryId = (id) => {
+      const params = new URLSearchParams(searchParams);
+        params.set('categoryId', id);
+
+      router.push(`${pathname}?${params.toString()}`);
+    }
 
     return(
         
@@ -29,11 +35,12 @@ export default function Menu({onSelect}){
             <a href="#" className="w3-bar-item w3-button">
               <i className="fa fa-home w3-xlarge"></i>
             </a>
+            <a className="w3-bar-item w3-button w3-hide-small" onClick={()=> router.push(pathname)}>Todas</a>
             {listaCategorias.map((cat) =>
-                <a href="#" className="w3-bar-item w3-button w3-hide-small" onClick={()=>onSelect(cat.id)}>{cat.attributes.Name}</a> 
+                <a key={cat.id} className="w3-bar-item w3-button w3-hide-small" onClick={()=> setCategoryId(cat.id)}>{cat.attributes.Name}</a>
             )}
             
-            <a href="#" className="w3-bar-item w3-button w3-right">
+            <a className="w3-bar-item w3-button w3-right">
               <i className="fa fa-search w3-xlarge"></i>
             </a>
           </nav>
