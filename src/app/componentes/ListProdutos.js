@@ -24,10 +24,13 @@ export default function ListProdutos() {
                 return setListaProdutos(produtos);
             })
     }, [searchParams.get('categoryId')])
-
-    return (
-        listaProdutos.map((prod) => 
+    return(
+    <>
+        { listaProdutos?.length === 0 && <h2 id="not"> Sem produtos cadastrados para essa categoria </h2> }
+        {listaProdutos.map((prod) => 
             <CardProduto key={prod.id} produto={prod}></CardProduto>
-        )
-    )
+            
+        )}
+     </>
+)
 }
