@@ -40,4 +40,32 @@ footer{
 }
 li{
     background-color: black;
+    display: inline;
+    margin-left: 2%;
 }
+a{
+    background-color: #b40b9f;
+}
+.whatsapp-button {
+    display: block;
+    background-color: #25D366;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 5px;
+}
+
+#not{
+    color: red;
+    text-align: center;
+    margin-bottom: 10%;
+    margin-top: 5%;
+    font-weight: bold;
+
+}
+footer{background-color: #b40b9f;}
