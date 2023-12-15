@@ -1,36 +1,49 @@
 'use client'
-import axios from "axios";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import CardProduto from "./CardProduto";
 
-export default function ListProdutos() {
+import axios from 'axios';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from 'react';
+import 'w3-css/3/w3.css';
+
+export default function Menu(){
     const searchParams = useSearchParams();
-    const [listaProdutos, setListaProdutos] = useState([]);
+    const pathname = usePathname();
+    const router = useRouter();
+    const [listaCategorias, setListaCategorias] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:1337/api/produtos/?populate=*")
+        axios.get("http://localhost:1337/api/categories ")
             .then(function(response) { 
-                const category = searchParams.get('categoryId')
-                const produtos = response.data.data
-
-                if(category) {
-                    const filtered = produtos.filter(produto => {
-                        return produto.attributes.category.data && produto.attributes.category.data.id === parseInt(category)
-                    })
-                    return setListaProdutos(filtered);
-                }
-
-                return setListaProdutos(produtos);
+              let categorias= (response.data.data);
+              setListaCategorias(categorias);
             })
-    }, [searchParams.get('categoryId')])
-    return(
-    <>
-        { listaProdutos?.length === 0 && <h2 id="not"> Sem produtos cadastrados para essa categoria </h2> }
-        {listaProdutos.map((prod) => 
-            <CardProduto key={prod.id} produto={prod}></CardProduto>
             
-        )}
-     </>
-)
+    }, [])
+
+    const setCategoryId = (id) => {
+      const params = new URLSearchParams(searchParams);
+        params.set('categoryId', id);
+
+      router.push(`${pathname}?${params.toString()}`);
+    }
+
+    return(
+        
+    <div className="w3-top w3-margin-botton">
+          <nav className="w3-bar w3-large w3-black">
+            <a className="w3-bar-item w3-button w3-hide-large w3-hide-medium">&#9776;</a>
+            <a href="#" className="w3-bar-item w3-button">
+              <i className="fa fa-home w3-xlarge"></i>
+            </a>
+            <a className="w3-bar-item w3-button w3-hide-small" onClick={()=> router.push(pathname)}>Todas</a>
+            {listaCategorias.map((cat) =>
+                <a key={cat.id} className="w3-bar-item w3-button w3-hide-small" onClick={()=> setCategoryId(cat.id)}>{cat.attributes.Name}</a>
+            )}
+            
+            <a className="w3-bar-item w3-button w3-right">
+              <i className="fa fa-search w3-xlarge"></i>
+            </a>
+          </nav>
+        </div>
+    )
 }
